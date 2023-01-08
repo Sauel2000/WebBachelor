@@ -2,3 +2,8 @@
 .vs
 .myExpressApp
 /myExpressApp
+/my-app
+/api
+/package-lock.json
+/package.json
+/node_modules
