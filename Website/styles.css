@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+}
+  a, button{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color:black;
+  text-decoration: none;
+  
+  
+}
+
+.logo{
+  cursor: pointer;
+}
+
+button  {
+  padding:9px 25px;
+  
+  border: none;
+  border-radius: 50px;
+  cursor:pointer;
+  transition: all 0.3s ease 0s;
+}
+button:hover {
+  background-color: rgba(0,136,169,0.8)
+}
+.contentBox{
+  margin-left: 72px;
+  margin-right: 72px;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
+  color: black;
+}
+.topnav{
+  text-align: center;
+  background-image: TARGETLOGO.png;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:1px 5%;
+  border-bottom: 3px solid transparent;
+  border-color: blue;
+  background-image: url(wall.jfif) 
+}
+
+pic{
+  opacity: 1;
+}
+.container {
+  display: grid;
+  align-items: center; 
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 5px;
+  padding-left: 100px;
+  padding-right: 50px;
+ }
+ 
+ img {
+   padding: 70px;
+   max-width: 100%;
+   max-height:100%;
+ }
+ 
+ .text {
+   font-size: 15px;
+
+ }
+ .video{
+  padding-left: 100px;
+ }
+ .fa-instagram {
+  background: #125688;
+  color: white;
+}
