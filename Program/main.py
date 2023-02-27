@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import camera
 import module
 
@@ -12,3 +13,9 @@ print(object.sub(15,5))
 module.method()
 #objectCam = camera("Test", 9)
 #print(objectCam.method())
+=======
+print("Hello")
+
+print("Du er en bitch")
+
+>>>>>>> Stashed changes
