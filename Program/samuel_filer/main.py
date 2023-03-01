@@ -5,6 +5,7 @@ img = cv.imread('skyteskive.jpg',0)
 img = cv.medianBlur(img,5)
 cimg = cv.cvtColor(img,cv.COLOR_GRAY2BGR)
 
+ 
 
 circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT,1,20,
                             param1=50,param2=30,minRadius=0,maxRadius=0)
