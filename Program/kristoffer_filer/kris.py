@@ -21,14 +21,6 @@ contours, hierarchy = cv2.findContours(image=thresh, mode=cv2.RETR_TREE, method=
 # draw contours on the original image
 image_copy = thresh.copy()
 cv2.drawContours(image=image_copy, contours=contours, contourIdx=-1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
-
-imageLine = image_copy()
-
-pointA = (200,80)
-pointB = (450,80)
-cv2.line(img_gray, pointA, pointB, (255, 255, 0), thickness=3)
-cv2.imshow('Image Line', imageLine)
-cv2.waitKey(0)
                 
 # see the results
 cv2.imshow('None approximation', image_copy)
