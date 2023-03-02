@@ -5,7 +5,7 @@ path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samu
 
 
 
-img = cv.imread(r'path',0)
+img = cv.imread(path,0)
 img = cv.medianBlur(img,5)
 cimg = cv.cvtColor(img,cv.COLOR_GRAY2BGR)
 circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT,1,20,
