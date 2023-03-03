@@ -1,7 +1,7 @@
 import numpy as np
 import cv2 as cv
 from matplotlib import pyplot as plt
-path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/skyteskive.jpg"
+path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/frontDistanseSkruer.jpg"
 
 img = cv.imread(path,0)
 
