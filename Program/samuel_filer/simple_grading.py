@@ -1,4 +1,5 @@
 import numpy as np
+from PIL import Image, ImageEnhance
 import cv2 as cv
 from matplotlib import pyplot as plt
 from PIL import Image
