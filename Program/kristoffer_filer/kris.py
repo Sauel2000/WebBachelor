@@ -1,15 +1,36 @@
 import cv2
 from matplotlib import pyplot as plt
-  
-img = cv2.imread('samuel_filer\samuel_bilder\Skyteskive.jpg')
+import numpy as np
+
+img = cv2.imread('kristoffer_filer\kris_bilder\PaintSkive.jpg')
+
+lower_red = np.array([0, 0, 200], dtype = "uint8") 
+upper_red= np.array([0, 0, 255], dtype = "uint8")
+
+mask = cv2.inRange(img, lower_red, upper_red)
+
+detected_output = cv2.bitwise_and(img, img, mask =  mask) 
+
+cv2.imshow("red color detection", detected_output) 
+
+cv2.waitKey(0) 
+
+
+'''
+img = cv2.imread('kristoffer_filer\kris_bilder\PaintSkive.jpg')
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
- 
+
 # convert the grayscale image to binary image
 ret,thresh = cv2.threshold(img_gray,127,255,0)
 
-contours, hierarchy = cv2.findContours(image=thresh, mode=cv2.RETR_TREE, method=cv2.CHAIN_APPROX_NONE)
 
- 
+lower_red = np.array([0, 0, 200], dtype = "uint8")
+upper_red = np.array([180,255,255], dtype = "uint8")
+mask = cv2.inRange(img, lower_red, upper_red)
+
+
+#contours, hierarchy = cv2.findContours(image=thresh, mode=cv2.RETR_TREE, method=cv2.CHAIN_APPROX_NONE)
+
 # calculate moments of binary image
 M = cv2.moments(thresh)
 image_copy = img.copy()
@@ -19,18 +40,20 @@ cX = int(M["m10"] / M["m00"])
 cY = int(M["m01"] / M["m00"])
  
 # put text and highlight the center
-midtpunkt = cv2.circle(img, (cX, cY), 5, (255, 255, 255), -1)
-cv2.putText(img, "centroid", (cX - 25, cY - 25),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+midtpunkt = cv2.circle(image_copy, (cX, cY), 2, (255, 255, 255), -1)
+cv2.putText(image_copy, "center", (cX - 25, cY - 25),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-down_width = 600
-down_Height = 500
+down_width = 800
+down_Height = 700
 down_points = (down_width, down_Height)
 
-resized_down = cv2.resize(image_copy, down_points, interpolation= cv2.INTER_LINEAR)
+resized_down = cv2.resize(img, down_points, interpolation= cv2.INTER_LINEAR)
 
 # display the image
 cv2.imshow("Image", resized_down)
 cv2.waitKey(0)
+
+'''
 
 '''
 ret, thresh = cv2.threshold(img_gray, 127, 255, 0)
@@ -95,4 +118,3 @@ plt.subplot(1, 1, 1)
 plt.imshow(img_rgb)
 plt.show()
 '''
-
