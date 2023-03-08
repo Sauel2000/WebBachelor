@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from PIL import Image
 
 
-path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/frontTom.jpg"
+path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/bright-image.png"
 
 img = cv.imread(path,0)
 numFigures = 5
