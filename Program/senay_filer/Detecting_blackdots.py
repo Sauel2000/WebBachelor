@@ -1,7 +1,7 @@
 import cv2
 
 black_dot = "C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/blackdot.jpg"
-dots_on_board = "C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/dots_on_board3.jpg"
+dots_on_board = "C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/dots_on_board2.jpg"
 
 #img_50 = cv2.resize(dots_on_board, None, fx = 0.50, fy = 0.50)
 #cv2.imshow('Resized image', img_50)
