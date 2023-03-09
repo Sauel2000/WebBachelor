@@ -3,15 +3,15 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # Reading image to be detected
-img = cv2.imread('C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/shapes.png')
+img = cv2.imread('C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/Skyteskive.jpg')
 
-down_height = 300
-down_width = 350
+down_height = 720
+down_width = 1280
 down_points = (down_width, down_height)
-img_2 = img
-"""
+
 img_2 = cv2.resize(img, down_points, interpolation= cv2.INTER_LINEAR)
-"""
+
+
 
 # converting image into grayscale image
 gray = cv2.cvtColor(img_2, cv2.COLOR_BGR2GRAY)
@@ -68,10 +68,11 @@ for contour in contours:
 
     else:
             cv2.putText(img_2, '|', (x, y),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
-
-   
-
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.1, (0, 0, 255), 0)
+            print("X - Coordinate", x)
+            print("Y - Coordinate", y)            
+            cv2.putText(img_2, 'X', (0, 0),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
 # displaying the image after drawing contours
 cv2.imshow('shapes', img_2)

@@ -1,7 +1,7 @@
 import cv2
 
 black_dot = "C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/blackdot.jpg"
-dots_on_board = "C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/dots_on_board2.jpg"
+dots_on_board = "C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/dots_on_board_scaledDown.jpg"
 
 #img_50 = cv2.resize(dots_on_board, None, fx = 0.50, fy = 0.50)
 #cv2.imshow('Resized image', img_50)
@@ -12,9 +12,11 @@ gray = cv2.imread(dots_on_board, 0)
 # Converts image to binary image, where pixels are set to 0 or 255, 
 # the thresholded image will have white pixels if intensity of the of the pixels is below the threshold 100, 
 # and black pixels if intensity of the pixels is above the threshold. 
-#th, threshed = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY_INV|cv2.THRESH_OTSU)
-th, threshed = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY|cv2.THRESH_OTSU)
 
+th, threshed = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY_INV|cv2.THRESH_OTSU)
+"""
+th, threshed = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY|cv2.THRESH_OTSU)
+"""
 
 # Finding the countours around the black pixels, finds border around the the black pixels
 cnts = cv2.findContours(threshed, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)[-2]
