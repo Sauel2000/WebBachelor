@@ -14,6 +14,7 @@ dim = (width, height)
 resized_img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
 resized_img[(160,650)] = [0,255,0]
 resized_img[(160,655)] = [0,255,0]
+print(img.shape[0])
 
 #cv2.rectangle(resized_img, (650,160), (660,170), (0, 255, 0), 1)
 
