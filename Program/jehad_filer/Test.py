@@ -38,36 +38,14 @@ while(wall == False):
     y2 = y_img
     pixel_center = img[(y_img,x_img)]
     
-    
-    
-    # dobbel sjekk om x og y ligger i riktig parameter posisjon
-    #cv2.rectangle(resized_img, (x1,y1), (x2,y2), (0, 255, 0), 1)
-    #print("x value: ", x_img, " | y_value: ", y_img)
-    
 
-    '''
-    if(pixel_center[0] < 100):
-         x_img += 5
-         pixel_center = resized_img[(y_img,x_img)]
-
-         if(pixel_center[0] > 180):
-              x_img += 5
-              pixel_center = resized_img[(y_img,x_img)]
-              if(pixel_center[0] < 100):
-                    cv2.rectangle(resized_img, (x1,y2), (x2,y2), (0, 255, 0), 2)
-                    print("\n --------------------------------------- \n\n\n STOP DU FANT DEN STOP STOP TOP!! \n\n\n ----------------------------- \n")
-                    wall = True
-              x_img -= 5
-         x_img -= 5
-     '''
     
     #if(( pixel_center[0] < 3) and  pixel_center[1] < 7 and (pixel_center[2] > 245 and pixel_center[2] < 256 ) ):
     if( pixel_center[0] < 8 and  pixel_center[1] < 4 and pixel_center[2] < 256 and pixel_center[2] > 245  ):
           punkter += 1
           cv2.rectangle(img, (x1,y1), (x2,y2), (0, 255, 0), -1)
-          #print(x1,y1,x2,y2)
+          print(x1,y1,x2,y2)
           #print(x_img, y_img)
-          
           #print("DONE!")
 
    
@@ -78,14 +56,10 @@ while(wall == False):
         #print("going to row", row ,"| y position = ", y_img,  "\n\n")
         row += 1
 
-
-
     if (y_img == (height - 10)):
             wall = True
     x_img += 1
     #print("x position: ", x_img)
-
-#cv2.imwrite('savedonce.jpg', resized_img)
 
 print(punkter)
 
