@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import cv2
 import numpy as np
 
@@ -23,3 +24,6 @@ print(img.shape[0])
 cv2.imshow('detect holes', resized_img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+=======
+print("run")
+>>>>>>> Stashed changes

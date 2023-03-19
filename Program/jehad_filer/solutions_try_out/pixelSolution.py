@@ -1,68 +1,48 @@
-
-#Denne koden skal gå utpå å prøve å finne farger i et bilde
-
-#Importerer 3 hoved libraries 
-import numpy as np
-import pandas as pd
 import cv2
+import numpy as np
 
-#Global values for if mouse clicked and 
-clicked = False
-r = g = b = xpos = ypos = 0
+PATH = "C:/Users/jehad/Desktop/WebBachelor/Program/samuel_filer/samuel_bilder/skyteSkive.jpg"
+PATH2 = "C:/Users/jehad\Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/color_image.jpg"
+PATH3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/skyteskive_ThreeMark.jpg"
+PATH4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS_RedMarks.jpg"
+PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/smallRedMarkers.jpg"
+PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/virkeligObjekt.jpg"
 
+# Load the image
+img = cv2.imread(PATH)
 
-img = cv2.imread("color_image.jpg") #Load's the image
+# Convert to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-#Importing color values from a csv file
-index=["color", "color_name", "hex", "R", "G", "B"]
-csv = pd.read_csv('colors.csv', names = index, header = None)
+# Apply Gaussian blur to reduce noise
+blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
+# Apply adaptive thresholding to segment the target
+thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
 
-def recognize_color(R, G, B):
-    minimum = 10000
-    for i in range(len(csv)):
-        d = abs(R- int(csv.loc[i,"R"])), + abs(G- int(csv.loc[i, "G"])) + abs(B- int(csv.loc[i, "B"]))
-        
-        if(d <= minimum):
-            minimum = d
-            cname = csv.loc[i, "color_name"]
-            return cname
-        
-def mouse_click(event, x, y, flags, param):
-    if event == cv2.EVENT_LBUTTONDBLCLK:
-        global b,g,r,xpos,ypos, clicked
-        clicked = True
-        xpos = x
-        ypos = y
-        b,g,r = img[y,x]
-        b = int(b)
-        g = int(g)
-        r = int(r)
+# Find contours in the thresholded image
+contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
+# Find the circular contour of the target
+target_contour = None
+for c in contours:
+    perimeter = cv2.arcLength(c, True)
+    approx = cv2.approxPolyDP(c, 0.02 * perimeter, True)
+    if len(approx) >= 8 and cv2.isContourConvex(approx):
+        target_contour = approx
 
-cv2.namedWindow('Color Recognition App')
-cv2.setMouseCallback('Color Recognition App', mouse_click)
+# If the circular contour is found, draw it on the image and detect shooting spots
+if target_contour is not None:
+    cv2.drawContours(img, [target_contour], -1, (0, 255, 0), 2)
+    (x, y), r = cv2.minEnclosingCircle(target_contour)
+    for c in contours:
+        if cv2.contourArea(c) < 100:
+            continue
+        (cx, cy), _ = cv2.minEnclosingCircle(c)
+        if cv2.norm(np.array([cx, cy]) - np.array([x, y])) < r:
+            cv2.circle(img, (int(cx), int(cy)), 5, (0, 0, 255), -1)
 
-while(1): 
-    cv2.imshow("Color Recognition App",img)
-    if (clicked):
-   
-        #cv2.rectangle(image, startpoint, endpoint, color, thickness)-1 fills entire rectangle 
-        cv2.rectangle(img,(20,20), (750,60), (b,g,r), -1)
-        #Creating text string to display( Color name and RGB values )
-        text = recognize_color(r,g,b) + ' R='+ str(r) +  ' G='+ str(g) +  ' B='+ str(b)
-        
-        #cv2.putText(img,text,start,font(0-7),fontScale,color,thickness,lineType )
-        cv2.putText(img, text,(50,50),2,0.8,(255,255,255),2,cv2.LINE_AA)
-        #For very light colours we will display text in black colour
-        if(r+g+b>=600):
-            cv2.putText(img, text,(50,50),2,0.8,(0,0,0),2,cv2.LINE_AA)
-        clicked=False
-
-#Break the loop when user hits 'esc' key    
-    if cv2.waitKey(20) & 0xFF ==27:
-        break
-        
+# Display the result
+cv2.imshow('Result', img)
+cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-#print(0)

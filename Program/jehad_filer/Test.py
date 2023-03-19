@@ -10,6 +10,7 @@ PATH2 = "C:/Users/jehad\Desktop/WebBachelor/Program/jehad_filer/solutions_try_ou
 PATH3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/skyteskive_ThreeMark.jpg"
 PATH4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS_RedMarks.jpg"
 PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/smallRedMarkers.jpg"
+PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/virkeligObjekt.jpg"
 img = cv2.imread(PATH5)
 
 width = img.shape[1]
@@ -44,7 +45,7 @@ while(wall == False):
     if( pixel_center[0] < 8 and  pixel_center[1] < 4 and pixel_center[2] < 256 and pixel_center[2] > 245  ):
           punkter += 1
           cv2.rectangle(img, (x1,y1), (x2,y2), (0, 255, 0), -1)
-          print(x1,y1,x2,y2)
+          #print(x1,y1,x2,y2)
           #print(x_img, y_img)
           #print("DONE!")
 
@@ -61,8 +62,8 @@ while(wall == False):
     x_img += 1
     #print("x position: ", x_img)
 
-print(punkter)
-
+#print(punkter)
+print(dim)
 cv2.imshow('detect holes',img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

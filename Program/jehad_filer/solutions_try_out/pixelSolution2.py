@@ -1,69 +1,51 @@
 import cv2
-import time
+import numpy as np
 
-'''
-cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-'''
+PATH = "C:/Users/jehad/Desktop/WebBachelor/Program/samuel_filer/samuel_bilder/skyteSkive.jpg"
+PATH2 = "C:/Users/jehad\Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/color_image.jpg"
+PATH3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/skyteskive_ThreeMark.jpg"
+PATH4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS_RedMarks.jpg"
+PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/smallRedMarkers.jpg"
+PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/virkeligObjekt.jpg"
 
+# Load the image
+img = cv2.imread(PATH3)
 
+# Convert to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-while True:
+# Apply Gaussian blur to reduce noise
+blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
-    #_, frame = cap.read()
-    #hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    #height, width, _, = frame.shape
+# Apply adaptive thresholding to segment the target
+thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
 
-    img = cv2.imread("Program\samuel_filer\samuel_bilder\frontTom.jpg")
-    hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+# Find contours in the thresholded image
+contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    cx = int(10)
-    cy = int(10)
+# Iterate through the contours and detect shooting spots
+for c in contours:
+    # Compute the area of the contour
+    area = cv2.contourArea(c)
 
+    # If the area is too small, ignore the contour
+    if area < 100:
+        continue
 
-    pixel_pos_detection = hsv_img[cy, cx]
-    hue_value = pixel_pos_detection[0]
+    # Compute the centroid of the contour
+    M = cv2.moments(c)
+    cx = int(M['m10'] / M['m00'])
+    cy = int(M['m01'] / M['m00'])
 
-    color = "undefined"
-    if (hue_value < 5 ):
-        color = "RED"
-    elif (hue_value < 22):
-        color = "ORANGE"
-    elif (hue_value < 33):
-        color = "YELLOW"
-    elif (hue_value < 78):
-        color = "GREEN"
-    elif (hue_value < 131):
-        color = "BLUE"
-    elif (hue_value < 170):
-        color = "VIOLET"
-    else:
-        color = "RED"
+    # Draw a circle at the centroid of the contour
+    cv2.circle(img, (cx, cy), 3, (0, 0, 255), -1)
+    print(cx, cy)
 
-    pixel_center_bgr = img[cy, cx]
-    b, g, r = int(pixel_center_bgr[0]), int(pixel_center_bgr[1]), int(pixel_center_bgr[2])
-    cv2.putText(img, color, (10,70), 0, 1.5, (b, g, r), 2)
-    
-    x_one, y_one = 0, 10
-    x_two, y_two = 10, 0
-    cv2.rectangle(img, (x_one,y_one),(x_two,y_two),(0,255,0),1)
-    
-    '''
-    startRecMove = True
-    while(startRecMove):
-            time.sleep(2)
-            x_one += 10
-            x_two += 10
-
-            if (x_two == 1280):
-                startRecMove = False 
-    '''
-    cv2.imshow("image", img)
-    key = cv2.waitKey(1)
-    if( key == 27):
-        break
-
+# Display the result
+cv2.imshow('Result', img)
+cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+|
 
 
