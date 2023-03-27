@@ -43,21 +43,23 @@ shotCoords = []
 # Value of each shot
 shotValue = 0
 
-#Check every pixel in each row to match the searching color
+# Check every pixel in each row to match the searching color
+# Nested for loop which iterates through every pixel in the image by iterating through height and width of the image. 
 for y in range(img.shape[0]):
     for x in range(img.shape[1]):
-        #@param img[heightPixel coord, rowPixel coord, indexColorPixel], SearchColor[index(B=0,G,1,R,2)]
+        # @param img[heightPixel coord, rowPixel coord, indexColorPixel], SearchColor[index(B=0,G,1,R,2)]
+        # if statement which compares the color of the current pixel with the specified color of SearchColor.
         if img[y,x,0] == SearchColor[0] and img[y,x,1] == SearchColor[1] and img[y,x,2] == SearchColor[2]:
-            #@param index,2D values (y=height, x=width)
+            # @param index,2D values (y=height, x=width)
             shotCoords.insert(shotValue,[x,y])
-            #Marking the shotpixel with circle
+            # Marking the shotpixel with circle
             img = cv.circle(img, (x,y), CircleMarkingRadius, colorCircle, thickness)
             shotValue += 1
 
 
 cv.imwrite(savePath,img)
     
-#Pring all shoot coordinates 
+# Prints all shot coordinates 
 for x in range(shotValue):
     print(shotCoords[x])   
 print("Number of hits",shotValue)
