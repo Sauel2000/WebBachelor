@@ -3,7 +3,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # reading image
-img = cv2.imread('C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/Skyteskive.jpg')
+img = cv2.imread('C:/Users/senay/OneDrive/Dokumenter/USN - 3/Bachelor oppgave/IMG_Processing_Testing/skyteskive_raw.jpg')
+
+
+ 
+cv2.imshow('Raw image', img)
+cv2.waitKey(0)
 
 # converting image into grayscale image
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -45,7 +50,7 @@ for contour in contours:
 					cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
 	elif len(approx) == 4:
-		cv2.putText(img, 'Quadrilateral', (x, y),
+		cv2.putText(img, ' ', (x, y),
 					cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
 	elif len(approx) == 5:
@@ -53,15 +58,15 @@ for contour in contours:
 					cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
 	elif len(approx) == 6:
-		cv2.putText(img, 'Hexagon', (x, y),
+		cv2.putText(img, ' ', (x, y),
 					cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
 	else:
-		cv2.putText(img, 'circle', (x, y),
-					cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+		cv2.putText(img, '*', (x, y),
+					cv2.FONT_HERSHEY_SIMPLEX, 0.2, (255, 255, 255), 1)
 
 # displaying the image after drawing contours
-cv2.imshow('shapes', img)
+cv2.imshow('CenterPoint', img)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
