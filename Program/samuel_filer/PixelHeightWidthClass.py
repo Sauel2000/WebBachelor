@@ -21,7 +21,5 @@ VertAxisCoords = CalibSys.getAxisCoords(img) # VerticalFirstAxisXCoord
 HorizontalAxisCoords = CalibSys.getAxisCoords(img) # HorizontalAxisXCord
 
 
-
-
 print(VertAxisCoords)
 print(HorizontalAxisCoords)
