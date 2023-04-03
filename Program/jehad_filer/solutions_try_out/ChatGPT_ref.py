@@ -20,8 +20,6 @@ PATH_L = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_o
 img = cv2.imread(PATH7)
 
 # Standard resolution
-width = 1920
-height = 1080
 new_width = img.shape[1]
 new_height = img.shape[0]
 resize_factor = 0.25
