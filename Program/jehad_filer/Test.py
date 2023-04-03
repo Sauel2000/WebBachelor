@@ -11,10 +11,17 @@ PATH3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_ou
 PATH4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS_RedMarks.jpg"
 PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/smallRedMarkers.jpg"
 PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/virkeligObjekt.jpg"
-img = cv2.imread(PATH5)
 
-width = img.shape[1]
-height = img.shape[0]
+PATH_J = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/jehad_m.jpg"
+PATH_O = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/olemarkus_m.jpg"
+PATH_L = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/lars_m.jpg"
+
+img = cv2.imread(PATH3)
+
+#width = img.shape[1] 
+#height = img.shape[0]
+width = 1280
+height = 720
 dim = (width, height)
 
 wall = False
@@ -29,7 +36,7 @@ punkter = 0
 
 
 print(dim)
-#resized_img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+resized_img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
 
 while(wall == False):
     x1 = x_img - 1 # -10
@@ -37,16 +44,16 @@ while(wall == False):
 
     x2 = x_img
     y2 = y_img
-    pixel_center = img[(y_img,x_img)]
+    pixel_center = resized_img[(y_img,x_img)]
     
 
     
     #if(( pixel_center[0] < 3) and  pixel_center[1] < 7 and (pixel_center[2] > 245 and pixel_center[2] < 256 ) ):
-    if( pixel_center[0] < 8 and  pixel_center[1] < 4 and pixel_center[2] < 256 and pixel_center[2] > 245  ):
+    if( pixel_center[0] < 50 and  pixel_center[1] < 50 and pixel_center[2] < 256 and pixel_center[2] > 150  ):
           punkter += 1
-          cv2.rectangle(img, (x1,y1), (x2,y2), (0, 255, 0), -1)
+          cv2.rectangle(resized_img, (x1,y1), (x2,y2), (0, 255, 0), -1)
           #print(x1,y1,x2,y2)
-          #print(x_img, y_img)
+          print(x_img, y_img)
           #print("DONE!")
 
    
@@ -62,9 +69,9 @@ while(wall == False):
     x_img += 1
     #print("x position: ", x_img)
 
-#print(punkter)
+print(punkter)
 print(dim)
-cv2.imshow('detect holes',img)
+cv2.imshow('detect holes',resized_img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
     
