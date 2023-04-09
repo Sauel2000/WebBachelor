@@ -58,4 +58,5 @@ class CalibrationSys:
 
         for y in range(startHorizontalCoord, endHorizontalCoord,1):
             widthLengthIRL=widthLengthIRL + pixelHorizontal
+        
         return "Pixelwidth is:", pixelHorizontal, "Pixelheight is:",pixelVertically, widthLengthIRL, heightLengthIRL

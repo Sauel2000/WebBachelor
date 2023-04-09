@@ -53,6 +53,7 @@ for y in range(columnPixels):
 cv.imwrite(savePath,img)
 
 shootingTargetCenterYCoord = int((verticalAxisPoint[-1][1]-verticalAxisPoint[0][1])/2 + verticalAxisPoint[0][1])
+print ( shootingTargetCenterYCoord, "Pixel Y")
 
 cmLen=0
 cmLenHorizontal = 0

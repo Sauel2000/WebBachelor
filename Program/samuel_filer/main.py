@@ -1,20 +1,27 @@
-import numpy as np
-import sys
+from ImagInfoClass import*
+#from hitsbetweenShots import*
 import cv2 as cv
-img = cv.imread('skyteskive.jpg',0)
-img = cv.medianBlur(img,5)
-cimg = cv.cvtColor(img,cv.COLOR_GRAY2BGR)
+import math
 
+path= "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/ABCop.jpg"
+
+img = cv.imread(path)
+#############################################################
+#This part is not needed when Jehad part is finished
+img[8,291]=(0,0,255) #Vertikale rød 
+img[565,291]=(0,0,255) #Vertikale rød
+img[292,5]=(255,0,0)  #Horizontal blå markeringer
+img[292,574]=(255,0,0)  #Horizontal blå markeringer
+#############################################################
+
+HitCalibSys = PixelSizeSys()
+
+pixel = HitCalibSys.getAxisCoords(img)
+deltaX = (pixel[0])**2
+deltaY = (pixel[1])**2
+distance = (deltaY+deltaX)**(1/2)
+print(distance)
+
+print(math.atan2(pixel[1],pixel[0]))   
  
-
-circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT,1,20,
-                            param1=50,param2=30,minRadius=0,maxRadius=1)
-circles = np.uint16(np.around(circles))
-for i in circles[0,:]:
-    # draw the outer circle
-    cv.circle(cimg,(i[0],i[1]),i[2],(0,255,0),2)
-    # draw the center of the circle
-    cv.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
-cv.imshow('detected circles',cimg)
-cv.waitKey(0)
-cv.destroyAllWindows()
+print (pixel)
