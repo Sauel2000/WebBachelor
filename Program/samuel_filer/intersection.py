@@ -26,27 +26,20 @@ X1 = [14]
 Y1 = [292]
   
 # Directional vector for vertical position
-U = [0]  
+U = [0]                   # INTERSECTER MED HORISONTAL PÅ 289
 V = [-531]  
 test = [289,26,14,292]
 # Direction vector for horizontal position
 U1 = [550]
 V1 = [-5]
 
+#PUNKT = intersections.
+
 # Creating plot
 plt.quiver(X, Y, U, V, color='b', units='xy', scale=1)
 plt.quiver(X1, Y1, U1, V1, color='g', units='xy', scale=1)
 
 plt.title('Single Vector')
-  
-# x-lim and y-lim
-#plt.xlim(0,columnPixels)
-#plt.ylim(widthPixels,0)
-
-
-# Show plot with grid
-
-
 
 
 imgplot = plt.imshow(img)

@@ -32,8 +32,9 @@ print(widthPixels)
 #plt.ylim(widthPixels,0)
 
 
-plt.quiver(*origin, data[:, 0], data[:, 1], color=['black', 'red', 'green'], scale=columnPixels)
+plt.quiver(*origin, data[:, 0], data[:, 1], color=['black', 'red', 'green'],units = 'xy', scale=1)
 
-
+#plt.xlim(0,columnPixels)
+#plt.ylim(widthPixels,0)
 imgplot = plt.imshow(img)
 plt.show()

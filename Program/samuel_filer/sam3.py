@@ -21,7 +21,7 @@ https://docs.opencv.org/3.4/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce
 
 ## Documentation for a function
 # Function that reads the input image
-img = cv.imread("C:/Users/jehad/Desktop/WebBachelor/Program/samuel_filer/samuel_bilder/dark-image.png")
+img = cv.imread(path1)
 
 # Color we search for, blue in this case.
 SearchColor = (255, 0, 0)
@@ -63,7 +63,6 @@ cv.imwrite(savePath,img)
 for x in range(shotValue):
     print(shotCoords[x])   
 print("Number of hits",shotValue)
-
 
 cv.imshow(window_name, img)
 cv.waitKey(0)
