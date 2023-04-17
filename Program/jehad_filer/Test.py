@@ -1,80 +1,62 @@
-import cv2
-import numpy as np
-import time
+'''
+
+##General CV2 library
+
+'''
+import cv2 as cv
+import matplotlib.pyplot as plt
 
 
-start_time = time.time()
-
-PATH = "C:/Users/jehad/Desktop/WebBachelor/Program/samuel_filer/samuel_bilder/skyteSkive.jpg"
-PATH2 = "C:/Users/jehad\Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/color_image.jpg"
-PATH3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/skyteskive_ThreeMark.jpg"
+#Path to pictures
+path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/linjal.jpg"
+path1 = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/dark-image.png"
+savePath="C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS.jpg"
 PATH4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS_RedMarks.jpg"
-PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/smallRedMarkers.jpg"
-PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/virkeligObjekt.jpg"
-
-PATH_J = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/jehad_m.jpg"
-PATH_O = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/olemarkus_m.jpg"
-PATH_L = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/lars_m.jpg"
-
-img = cv2.imread(PATH3)
-
-#width = img.shape[1] 
-#height = img.shape[0]
-width = 1280
-height = 720
-dim = (width, height)
-
-wall = False
-
-x_img = 1
-y_img = 1 
+PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/Skyteskive_redRectangleMark.jpg"
+PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/fysiskMark.jpg"
+PATH7 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/jehad_m.jpg"
+PATH8 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/linjal_L.jpg"
 
 
-row = 1
+'''
+Cv2 Section
 
-punkter = 0
+https://docs.opencv.org/3.4/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56
+
+'''
+
+## Documentation for a function
+# Function that reads the input image
+img = cv.imread(PATH8)
+
+# Image scale
+width = img.shape[1] 
+height = img.shape[0]
+
+# Image percentage scale factor
+resize_factor = 1
+
+# resized image scale
+resized_width = int(width * resize_factor)
+resized_height = int(height * resize_factor)
 
 
-print(dim)
-resized_img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+dim = (resized_width, resized_height)
 
-while(wall == False):
-    x1 = x_img - 1 # -10
-    y1 = y_img - 1 # -10
+resized_img = cv.resize(img, dim, interpolation = cv.INTER_AREA)
 
-    x2 = x_img
-    y2 = y_img
-    pixel_center = resized_img[(y_img,x_img)]
-    
+print(resized_img.shape[0], " | ", resized_width)
+print(resized_img.shape[1], " | ", resized_width)
 
-    
-    #if(( pixel_center[0] < 3) and  pixel_center[1] < 7 and (pixel_center[2] > 245 and pixel_center[2] < 256 ) ):
-    if( pixel_center[0] < 50 and  pixel_center[1] < 50 and pixel_center[2] < 256 and pixel_center[2] > 150  ):
-          punkter += 1
-          cv2.rectangle(resized_img, (x1,y1), (x2,y2), (0, 255, 0), -1)
-          #print(x1,y1,x2,y2)
-          print(x_img, y_img)
-          #print("DONE!")
+resized_img = cv.circle(resized_img, (24,1800), 1, [0,0,255], -1)
 
-   
-  
-    if (x_img == (width - 10)):
-        y_img += 1
-        x_img = 1
-        #print("going to row", row ,"| y position = ", y_img,  "\n\n")
-        row += 1
+resized_img = cv.cvtColor(resized_img, cv.COLOR_BGR2RGB)
 
-    if (y_img == (height - 10)):
-            wall = True
-    x_img += 1
-    #print("x position: ", x_img)
+imgplot = plt.imshow(resized_img)
 
-print(punkter)
-print(dim)
-cv2.imshow('detect holes',resized_img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-    
-print("\n Process finished in:", np.ceil((time.time()- start_time)),"seconds")
+plt.xlim(0,resized_width)
+plt.ylim(0, resized_height)
 
+#plt.savefig('books_read.png')
+plt.show()
 

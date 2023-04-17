@@ -9,9 +9,11 @@ import numpy as np
 #Path to pictures
 path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/linjal.jpg"
 path1 = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/dark-image.png"
-savePath="C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/ll.png"
+savePath="C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS.jpg"
 PATH4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS_RedMarks.jpg"
 PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/Skyteskive_redRectangleMark.jpg"
+PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/fysiskMark.jpg"
+PATH7 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/jehad_m.jpg"
 
 
 '''
@@ -23,14 +25,14 @@ https://docs.opencv.org/3.4/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce
 
 ## Documentation for a function
 # Function that reads the input image
-img = cv.imread(PATH4)
+img = cv.imread(PATH6)
 
 # Image scale
 width = img.shape[1] 
 height = img.shape[0]
 
 # Image percentage scale factor
-resize_factor = 0.8
+resize_factor = 0.2
 
 # resized image scale
 resized_width = int(width * resize_factor)
@@ -43,9 +45,9 @@ resized_img = cv.resize(img, dim, interpolation = cv.INTER_AREA)
 
 
 # RGB interval to find the pixels we are looking for
-R = (200, 256)
-G = 50
-B = 50
+R = (150, 256)
+G = 80
+B = 80
 
 
 # Color of the the circle to be drawn, red in this case. 
@@ -97,7 +99,7 @@ length_shotCoords = len(shotCoords)
 indexStart = 0
 
 # distance between two detected pixels
-shotPixelDistance = 6
+shotPixelDistance = 30
 
 
 # This for loop is to go through all detected pixels and organize pixels for each shooting hole

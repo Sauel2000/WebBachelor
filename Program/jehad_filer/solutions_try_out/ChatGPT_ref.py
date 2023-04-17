@@ -10,7 +10,7 @@ PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_ou
 
 PATH7 = "C:/Users/jehad/Desktop/WebBachelor/Program/samuel_filer/samuel_bilder/AxisCord.jpg"
 PATH8 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/ref_bilder/ref_1.jpg"
-PATH9 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/ref_bilder/accurateRef.jpg"
+PATH9 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/ref_bilder/dafu.jpg"
 
 
 PATH_J = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/jehad_m.jpg"

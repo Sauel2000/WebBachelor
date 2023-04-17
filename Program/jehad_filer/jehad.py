@@ -1,29 +1,32 @@
-<<<<<<< Updated upstream
 import cv2
-import numpy as np
 
 img = cv2.imread("C:/Users/jehad/Desktop/WebBachelor/Program/samuel_filer/samuel_bilder/SkyteSkive.jpg")
 
-pixel_center = img[(160,650)]
 
-print(pixel_center)
-print(pixel_center[2])
-width = 1280
-height = 720
-dim = (width, height)
+# Load the image
+img = cv2.imread('your_image.jpg')
 
-resized_img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-resized_img[(160,650)] = [0,255,0]
-resized_img[(160,655)] = [0,255,0]
-print(img.shape[0])
+# Convert to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-#cv2.rectangle(resized_img, (650,160), (660,170), (0, 255, 0), 1)
+# Detect edges using Canny edge detector
+edges = cv2.Canny(gray, 50, 150, apertureSize=3)
 
+# Detect lines using Hough transform
+lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
 
+# Find the angle of rotation needed to straighten up the picture
+for line in lines:
+    rho, theta = line[0]
+    if abs(theta) > 0.1:
+        angle = (theta * 180 / np.pi) - 90
+        break
 
-cv2.imshow('detect holes', resized_img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-=======
-print("run")
->>>>>>> Stashed changes
+# Rotate the image by the calculated angle
+(h, w) = img.shape[:2]
+center = (w // 2, h // 2)
+M = cv2.getRotationMatrix2D(center, angle, 1.0)
+rotated = cv2.warpAffine(img, M, (w, h))
+
+# Save the rotated image
+cv2.imwrite('your_rotated_image.jpg', rotated)
