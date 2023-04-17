@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 from PIL import Image
 import matplotlib.image as mpimg
 
-path= "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/ref.jpg"
+path= "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/refGrad.jpg"
 savePath="C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/ll.png"
 
 
@@ -18,20 +18,25 @@ widthPixels =(img.shape[1])     #Høyden i bilde i  piksler
 
 imgplot = plt.imshow(img)
 
-x = [121]
-y = [426]
-u = [636]
-v = [-7]
+x = [337.5]
+y = [96]
+u = [-24.5]
+v = [-386]
 
-y1 = [104]
-x1 = [438]
-v1 = [-634]
-u1 = [-5]
 
+x2 = [196]
+y2 = [213]
+u2 = [304.5]
+v2 = [-300]
+
+
+
+
+
+
+plt.quiver(x2,y2,u2,v2, color='r', units='xy', scale=1, width=0.5)
 
 plt.quiver(x,y,u,v, color='r', units='xy', scale=1, width=0.5)
-plt.quiver(x1,y1,u1,v1, color='r', units='xy', scale=1, width=0.5)
-
 
 # Displaying the image 
 plt.xlim(0,widthPixels)
