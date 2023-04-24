@@ -86,6 +86,7 @@ pic{
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
+  text-align: center;
 }
 
 .container h1 {
