@@ -5,24 +5,23 @@ import cv2 as cv
 from ImagInfoClass import*
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-from intersect import intersection
 import numpy as np
 import math
-from sympy import Point3D, Line3D, Plane
 savePath="C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/ll.png"
 
 path= "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/lin.jpg"
+PATH1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/linjal_L.jpg"
 
 
-img = mpimg.imread(path)
-img[130,50]=(255,0,0)
+img = mpimg.imread(PATH1)
+
 
 heightPixels = (img.shape[0])   #Bredden i bildet i piksler
 widthPixels =(img.shape[1])     #Høyden i bilde i  piksler
 print(heightPixels, widthPixels)
 
 
-img[23,465]=(255,0,0) # IMG[Y X] #297-273.5= Y, 288,5+274,5=X
+#img[23,465]=(255,0,0) # IMG[Y X] #297-273.5= Y, 288,5+274,5=X
 #img[0,0] = (255,0,0)
 #img[266,33]
 
@@ -100,7 +99,7 @@ plt.quiver(X3, Y3, U3, V3, color='r', units='xy', scale=1, width=0.5)
 imgplot = plt.imshow(img)
 
 plt.xlim(0,widthPixels)
-plt.ylim(heightPixels,0)
+plt.ylim(0,heightPixels)
 
 plt.savefig('books_read.png')
 plt.show()
