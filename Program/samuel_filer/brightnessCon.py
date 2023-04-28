@@ -20,3 +20,5 @@ enhanced_output.save("C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/sam
 factor = 2
 enhanced_output = img_enhancer.enhance(factor)
 enhanced_output.save("C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/bright-image.png")
+
+

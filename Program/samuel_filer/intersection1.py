@@ -17,7 +17,9 @@ hor_start = np.array([1922.5, 4143])
 hor_end = np.array([7395+1922.5, 4143-113])
 
 #Defining vector direction for target reference
-
+hor_x_mm_10 = (hor_end[0]-hor_start[0])/485*242.5
+hor_y_mm_10 = (hor_start[1]-hor_end[1])/485*242.5
+hor_xy_mm_end = np.array([hor_x_mm_10,hor_y_mm_10])
 
 
 
@@ -81,6 +83,5 @@ ax.imshow(img)
 ax.plot([hor_start[0], hor_end[0]], [hor_start[1], hor_end[1]], color='red', linewidth=1)
 ax.plot([ver_start[0], ver_end[0]], [ver_start[1], ver_end[1]], color='green', linewidth=1)
 ax.plot([shot1_start[0], shot1_end[0]], [shot1_start[1], shot1_end[1]], color='green', linewidth=1)
-
-#ax.plot([v3_start[0], v3_end[0]], [v3_start[1], v3_end[1]], color='green', linewidth=1)
+plt.quiver(hor_start[0],hor_start[1],hor_xy_mm_end[0],hor_xy_mm_end[1],color='g',units ='xy', scale=1,width=1)
 plt.show()
