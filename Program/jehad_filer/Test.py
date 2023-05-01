@@ -1,62 +1,65 @@
-'''
+import math
 
-##General CV2 library
+# Define a function to calculate the Euclidean distance between two points
+def distance(point1, point2):
+    return math.sqrt((point1[0]-point2[0])**2 + (point1[1]-point2[1])**2)
 
-'''
-import cv2 as cv
-import matplotlib.pyplot as plt
+# Define the distance threshold for grouping points
+dist_threshold = 20
 
+# Define the initial list of points
+points = [(1,2), (3,4), (5,6), (10,12), (15,16), (17,19), (22,24), (24,28), (30,32)]
 
-#Path to pictures
-path = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/linjal.jpg"
-path1 = "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/dark-image.png"
-savePath="C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS.jpg"
-PATH4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/resized_SS_RedMarks.jpg"
-PATH5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/Skyteskive_redRectangleMark.jpg"
-PATH6 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/fysiskMark.jpg"
-PATH7 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/jehad_m.jpg"
-PATH8 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/linjal_L.jpg"
+# Create an empty list to store the groups of points
+groups = []
 
+# Loop through all points and check if they are close to any other points
+for i in range(len(points)):
+    # Create a new group with the current point
+    current_group = [points[i]]
+    
+    # Check if any other points are close to the current point
+    for j in range(i+1, len(points)):
+        if distance(points[i], points[j]) <= dist_threshold:
+            current_group.append(points[j])
+    
+    # Check if the current group overlaps with any existing groups
+    group_overlap = False
+    for group in groups:
+        if any([point in group for point in current_group]):
+            group.extend(current_group)
+            group_overlap = True
+            break
+    
+    # If the current group does not overlap with any existing groups, add it to the list of groups
+    if not group_overlap:
+        groups.append(current_group)
 
-'''
-Cv2 Section
+# Loop through all the groups and look for the furthest point within each group
+for group in groups:
+    # Find the point that is furthest away from the first point in the group
+    furthest_point = group[0]
+    furthest_distance = 0
+    for point in group:
+        if distance(group[0], point) > furthest_distance:
+            furthest_point = point
+            furthest_distance = distance(group[0], point)
+    
+    # Create a new group with the furthest point
+    new_group = [furthest_point]
+    
+    # Loop through all other points in the same group and check if they are within 20 pixels
+    for point in group:
+        if point == furthest_point:
+            continue
+        if distance(furthest_point, point) <= dist_threshold:
+            new_group.append(point)
+    
+    # Add the new group to the list of groups
+    groups.append(new_group)
 
-https://docs.opencv.org/3.4/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56
+    # Remove the original group from the list of groups
+    groups.remove(group)
 
-'''
-
-## Documentation for a function
-# Function that reads the input image
-img = cv.imread(PATH8)
-
-# Image scale
-width = img.shape[1] 
-height = img.shape[0]
-
-# Image percentage scale factor
-resize_factor = 1
-
-# resized image scale
-resized_width = int(width * resize_factor)
-resized_height = int(height * resize_factor)
-
-
-dim = (resized_width, resized_height)
-
-resized_img = cv.resize(img, dim, interpolation = cv.INTER_AREA)
-
-print(resized_img.shape[0], " | ", resized_width)
-print(resized_img.shape[1], " | ", resized_width)
-
-resized_img = cv.circle(resized_img, (24,1800), 1, [0,0,255], -1)
-
-resized_img = cv.cvtColor(resized_img, cv.COLOR_BGR2RGB)
-
-imgplot = plt.imshow(resized_img)
-
-plt.xlim(0,resized_width)
-plt.ylim(0, resized_height)
-
-#plt.savefig('books_read.png')
-plt.show()
-
+# Print out the final list of groups
+print(groups)

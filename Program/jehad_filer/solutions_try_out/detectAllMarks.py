@@ -16,7 +16,7 @@ PATHS_3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_
 
 ## Documentation for a function
 # Function that reads the input image
-img = cv.imread(PATHS_3)
+img = cv.imread(PATHS_1)
 flipped_image = cv.flip(img, 0)
 
 
@@ -143,7 +143,7 @@ for group in groups:
     resized_img[center_y, center_x] = [255, 255, 255]
 
 
-    print("\n", samePixelShots, "\n")
+    #print("\n", samePixelShots, "\n")
     marks += 1
 
 print(marks)
