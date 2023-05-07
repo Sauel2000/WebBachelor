@@ -13,8 +13,8 @@ heightPixels = (img.shape[0])   #Width in pic in pixles
 widthPixels =(img.shape[1])     #Height in pic in pixles
 
 # Define the starting and ending points of the first vector
-hor_start = np.array([5640,4582.5])
-hor_end = np.array([6992, 4584])
+hor_start = np.array([5636.5,4582.5])
+hor_end = np.array([6996.5, 4582.5])
 
 
 #Defining vector direction for target reference
@@ -29,16 +29,24 @@ print(hor_x_mm_10,hor_y_mm_10,"deltaY")
 
 
 # Define the starting and ending points of the second vector
-ver_start = np.array([6315.5,3759])
-ver_end = np.array([6313.5,5402.5])
+ver_start = np.array([6315.5,3901.5])
+ver_end = np.array([6313.5,5261.5])
 intersection_point = []
 
+
+
+#Vertical vector center out
+ver_x_mm_10 = (ver_end[0]-ver_start[0])/400*200
+ver_y_mm_10 = (ver_start[1]-ver_end[1])/400*200
+ver_xy_mm_end = np.array([ver_x_mm_10,ver_y_mm_10])
 
 
 
 # Calculate the direction vectors of each vector
 v1_dir = hor_end - hor_start
 v2_dir = ver_end - ver_start
+
+
 
 # Defining the "average pixel widht and height"
 pixel_size_horizontal = 485/abs(hor_end[0]-hor_start[0])
@@ -93,7 +101,8 @@ ax.plot([hor_start[0], hor_end[0]], [hor_start[1], hor_end[1]], color='red', lin
 ax.plot([ver_start[0], ver_end[0]], [ver_start[1], ver_end[1]], color='green', linewidth=1)
 ax.plot([shot1_start[0], shot1_end[0]], [shot1_start[1], shot1_end[1]], color='green', linewidth=1)
 #ax.plot([hor_start[0], hor_xy_mm_end[0]], [hor_start[1], hor_xy_mm_end[0]], color='green', linewidth=1)
-plt.quiver(intersection_point[0],intersection_point[1],hor_xy_mm_end[0],hor_xy_mm_end[1],color='g',units ='xy', scale=1,width=4)
+plt.quiver(intersection_point[0],intersection_point[1],hor_xy_mm_end[0],hor_xy_mm_end[1],color='g',units ='xy', scale=1,width=10)
+plt.quiver(intersection_point[0],intersection_point[1],ver_xy_mm_end[0],ver_xy_mm_end[1],color='red',units ='xy', scale=1,width=10)
 
 
 

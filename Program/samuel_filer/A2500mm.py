@@ -12,6 +12,7 @@ img = mpimg.imread(path)
 heightPixels = (img.shape[0])   #Width in pic in pixles
 widthPixels =(img.shape[1])     #Height in pic in pixles
 
+
 # Define the starting and ending points of the first vector
 hor_start = np.array([5042.5,4582])
 hor_end = np.array([6363.5, 4590.5])
