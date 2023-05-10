@@ -27,124 +27,24 @@ path_blue_4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_
 path_blue_5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/blaWhite_mark_1m.jpg"
 path_blue_7 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/blaWhite_mark_1.5m.jpg"
 
-P1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/greenMark_0.65m.jpg"
+Vw1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/greenMark_0.65m.jpg"
 G1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/greenMark_0.65m.jpg"
 blue = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/lightbla_tag.jpg"
 
 blue2 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/strongBlue_mark_0.65m.jpg"
 
 
-
-# find a pixel close to the center of the shooting target 
-def find_center(img):
-    # img const resolution 
-    width = 9000
-    height = 12000
-
-    # center of image based on resoultion
-    x = width // 2
-    y = height // 2
-
-    # Array for black pixels detected, black pixels is supposed to represent the target
-    blackPixelsArray = []
-
-    # count how many times we detect white pixel
-    count = 0
-
-    # value that is max threshold for black pixel
-    blackPixel = 50
-
-    # value that is min threshold from 170 to 255
-    whitePixel = 170
-
-    # check amount of times for white pixelø
-    checkLimit = 10
-
-    # look in axis'es for black pixels, if found put it into array and if not add 1 to count and if you find white pixels 10 times, stop. 
-    # look in +x axis 
-    for i in range(x,width, 100):
-        if (img[y,i,0] < blackPixel and img[y,i,1] < blackPixel and img[y,i,2] < blackPixel):
-            point = (i, y)
-            blackPixelsArray.append(point)
-    
-        if (img[y,i,0] > whitePixel and img[y,i,1] > whitePixel and img[y,i,2] > whitePixel):
-            count += 1
-
-        if (count == checkLimit):
-            break
-    
+test = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/testMarks.jpg"
 
 
-    # count how many times we detect white pixel (We reset the value here to 0)
-    count = 0
-
-    # look in -x axis 
-    for i in range(x,0, -100):
-        
-        if (img[y,i,0] < blackPixel and img[y,i,1] < blackPixel and img[y,i,2] < blackPixel):
-            point = (i, y)
-            blackPixelsArray.append(point)
-        
-        if(img[y,i,0] > whitePixel and img[y,i,1] > whitePixel and img[y,i,2] > whitePixel):
-            count += 1
-            
-        if (count == checkLimit):
-                break
-    
-    #Find the black pixel which is furthest to the right           
-    rightMostPixel = max(blackPixelsArray[i][0] for i in range(len(blackPixelsArray)))
-    
-    #Find the black pixel which is furthest to the left           
-    leftMostPixel = min(blackPixelsArray[i][0] for i in range(len(blackPixelsArray))) 
-
-    # Find the center x value between leftMostPixel and rightMostPixel
-    distance_x = ((rightMostPixel - leftMostPixel) // 2) + leftMostPixel
-
-    # clear array to input new black pixels when we look for y values next
-    blackPixelsArray.clear()
-
-    # count how many times we detect white pixel (We reset the value here to 0)
-    count = 0
+P1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/lightMarks_top.jpg"
+P2 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/lightMarks_bottom.jpg"
 
 
-    # look in axis'es for black pixels, if found put it into array and if not add 1 to count and if you find white pixels 10 times, stop. 
-    # look in y axis 
-    for i in range(y,height, 100):
-    
-        if (img[i,distance_x,0] < blackPixel and img[i,distance_x,1] < blackPixel and img[i,distance_x,2] < blackPixel):
-            point = (i, y)
-            blackPixelsArray.append(point)
-        
-        if (img[i,distance_x,0] > whitePixel and img[i,distance_x,1] > whitePixel and img[i,distance_x,2] > whitePixel):
-            count += 1
+P3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/darkMarks_top.jpg"
+P4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/darkMarks_bottom.jpg"
 
-        if (count == checkLimit):
-            break
 
-    # count how many times we detect white pixel (We reset the value here to 0)
-    count = 0
-
-    # look in -y axis 
-    for i in range(y,0, -100):
-        
-        if (img[i,distance_x,0] < blackPixel and img[i,distance_x,1] < blackPixel and img[i,distance_x,2] < blackPixel):
-            point = (i, y)
-            blackPixelsArray.append(point)
-        
-        if(img[i,distance_x,0] > whitePixel and img[i,distance_x,1] > whitePixel and img[i,distance_x,2] > whitePixel):
-            count += 1
-
-        if (count == checkLimit):
-                break
-        
-    #find the top and bottom most pixel 
-    TopMostPixel = max(blackPixelsArray[i][0] for i in range(len(blackPixelsArray)))
-    bottomMostPixel = min(blackPixelsArray[i][0] for i in range(len(blackPixelsArray)))
-
-    # find the center y value between the most top and bottom black pixel
-    distance_y =  ((TopMostPixel - bottomMostPixel) // 2) + bottomMostPixel
-
-    return (distance_x, distance_y)
 
 # create a square for searching area
 def find_searching_area_limits(img, img_center_x, img_center_y):
@@ -228,9 +128,9 @@ def groupPixelWithSameRGB(img, shotCoords, searchingLimits, color):
 
     # RGB interval to find the pixels we are looking for
     if color == 0:
-        R = 70  
+        R = 80  
         G = (70, 140) 
-        B = (100, 190)
+        B = (70, 150)
 
         
         # Check every pixel in each row to match the searching color
@@ -246,13 +146,13 @@ def groupPixelWithSameRGB(img, shotCoords, searchingLimits, color):
                     shotCoords.append([x,y]) 
                     
                     # Marking the shotpixel with circle
-                    #img = cv.circle(img, (x,y), CircleMarkingRadius, colorCircle, thickness)
+                    img = cv.circle(img, (x,y), CircleMarkingRadius, colorCircle, thickness)
 
         return shotCoords
     
     elif color == 1:
-            R = (200, 256)
-            G = 140
+            R = (170, 256)
+            G = 80
             B = 80
 
             # Check every pixel in each row to match the searching color
@@ -316,7 +216,7 @@ def findCenterPixelOnMark(groups):
 
         x, y, w, h = cv.boundingRect(samePixelShots)
 
-        cv.rectangle(img, (x, y), (x+w, y+h), (0, 255, 255), 5)
+        #cv.rectangle(img, (x, y), (x+w, y+h), (0, 255, 255), 5)
 
         # Find the center of the boundingRec
         center_x = x + int(w/2)
@@ -347,7 +247,7 @@ def SearchAreaMark(img, groups):
 
 
 # Function that reads the input image
-img = cv.imread(blue2)
+img = cv.imread(P1)
 
 # Image resolution
 width = img.shape[1]
@@ -369,15 +269,17 @@ CircleMarkingRadius = 2
 thickness = -1
 
 # Starting point from where we utilize Jump factor to find searching Area
-centerPoint = find_center(img)
-img_center_x = centerPoint[0]
-img_center_y = centerPoint[1]
+
+
+
+img_center_x = width // 2
+img_center_y = height // 2
 
 # Mark ish the center of shooting target
 #img = cv.circle(img, (img_center_x,img_center_y), 50, (0,255,0), -1)
 
 # find the searching area
-searchingLimits = find_searching_area_limits(img,img_center_x, img_center_y)
+searchingLimits = [0, width- 1000, 0, height - 1000]
 
 # color of marks to look for
 blue = 0
