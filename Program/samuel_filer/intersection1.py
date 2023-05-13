@@ -29,7 +29,7 @@ ver_end = np.array([121.5+5580, 7432+360])
 intersection_point = []
 
 # Defining the "average pixel widht and height"
-pixel_size_horizontal = 485/7395
+pixel_size_horizontal = 485/(hor_end[0]-hor_start[0])
 pixel_size_vertical = 485/7432
 
 

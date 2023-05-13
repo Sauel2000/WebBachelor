@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Image, Text } from 'react-native';
+import * as ImageManipulator from 'expo-image-manipulator';
 
-export default function App() {
+const path = 'C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/my-app/assets/ABRW.jpg';
+
+const App = () => {
+  const [image, setImage] = useState(null);
+  const [heightPixels, setHeightPixels] = useState(0);
+  const [widthPixels, setWidthPixels] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const { uri, width, height } = await ImageManipulator.manipulateAsync(path, [], { format: 'jpg' });
+      setImage(uri);
+      setHeightPixels(height);
+      setWidthPixels(width);
+    })();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      {image && <Image source={{ uri: image }} />}
+      <Text>{`Height in pixels: ${heightPixels}`}</Text>
+      <Text>{`Width in pixels: ${widthPixels}`}</Text>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

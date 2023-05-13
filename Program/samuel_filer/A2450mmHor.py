@@ -5,7 +5,7 @@ from ImageInfoClass2 import CalibrationSys
 import math
 
 
-path= "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/A2450mmHor.jpg"
+path= "C:/Users/Samue/Desktop/BachelorGit/WebBachelor/Program/samuel_filer/samuel_bilder/A.jpg"
 
 
 img = mpimg.imread(path)
@@ -13,14 +13,14 @@ heightPixels = (img.shape[0])   #Width in pic in pixles
 widthPixels =(img.shape[1])     #Height in pic in pixles
 
 # Define the starting and ending points of the first vector
-hor_start = np.array([5636.5,4582.5])
-hor_end = np.array([6996.5, 4582.5])
+hor_start = np.array([3757.5,6440])
+hor_end = np.array([5557.5, 6389.5])
 
 
 #Defining vector direction for target reference
-hor_x_mm_10 = (hor_end[0]-hor_start[0])/400*200
-hor_y_mm_10 = (hor_start[1]-hor_end[1])/400*200
-hor_xy_mm_end = np.array([hor_x_mm_10,hor_y_mm_10])
+hor_x_mm_10 = (hor_end[0]-hor_start[0])/484*200
+hor_y_mm_10 = (hor_start[1]-hor_end[1])/484*200
+hor_xy_mm_end = [hor_x_mm_10,hor_y_mm_10]
 
 print(hor_x_mm_10,hor_y_mm_10,"deltaY")
 
@@ -29,8 +29,8 @@ print(hor_x_mm_10,hor_y_mm_10,"deltaY")
 
 
 # Define the starting and ending points of the second vector
-ver_start = np.array([6315.5,3901.5])
-ver_end = np.array([6313.5,5261.5])
+ver_start = np.array([4627,5515])
+ver_end = np.array([4682.5,7317.5])
 intersection_point = []
 
 
@@ -78,13 +78,13 @@ else:
 print(intersection_point)
 #Shoot coordinates
 shot1_start = [intersection_point[0],intersection_point[1]]       #origo
-shot1_end = [intersection_point[0]+27,intersection_point[1]-237]
+shot1_end = [intersection_point[0]-1,intersection_point[1]+541]
 
 
 
 
-mm_IRL_Hor = pixel_size_horizontal * 237
-mm_IRL_Ver = pixel_size_vertical * 27
+mm_IRL_Hor = pixel_size_horizontal * 1
+mm_IRL_Ver = pixel_size_vertical * 541
 hypIRL = np.sqrt(mm_IRL_Hor**2+mm_IRL_Ver**2)
 print(mm_IRL_Hor,"X-katet til skudd")
 print(mm_IRL_Ver, "Y-katet til skudd")
