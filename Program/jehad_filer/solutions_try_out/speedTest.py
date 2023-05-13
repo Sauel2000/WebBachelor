@@ -27,31 +27,176 @@ path_blue_4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_
 path_blue_5 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/blaWhite_mark_1m.jpg"
 path_blue_7 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/blaWhite_mark_1.5m.jpg"
 
-Vw1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/greenMark_0.65m.jpg"
+P1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/greenMark_0.65m.jpg"
 G1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/greenMark_0.65m.jpg"
 blue = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/lightbla_tag.jpg"
 
 blue2 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/strongBlue_mark_0.65m.jpg"
 
-
-test = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/testMarks.jpg"
-
-
-P1 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/lightMarks_top.jpg"
-P2 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/lightMarks_bottom.jpg"
+uteTest_1= "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/samuel_tele/outside/UteTest_1.jpg"
 
 
-P3 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/darkMarks_top.jpg"
-P4 = "C:/Users/jehad/Desktop/WebBachelor/Program/jehad_filer/solutions_try_out/opplosning_bilder/senay_tele/darkMarks_bottom.jpg"
+# find a pixel close to the center of the shooting target 
+def find_center(img):
+    # img const resolution 
+    width = 9000
+    height = 12000
+
+    # center of image based on resoultion
+    x = width // 2
+    y = height // 2
+
+     # Array for black pixels detected, black pixels is supposed to represent the target
+    blackPixelsArray = []
+
+    # count how many times we detect white pixel
+    count = 0
+
+    # value that is max threshold for black pixel
+    blackPixel = 90
+
+    # value that is min threshold from 170 to 255
+    whitePixel = 170
+
+    # check amount of times for white pixelø
+    checkLimit = 10
+
+    searchingRadius = 2000
+    jumpPixel = 200
+
+    searchingArea_x_plus = x + searchingRadius
+    searchingArea_y_plus = y + searchingRadius
+    searchingArea_x_minus = x - searchingRadius
+    searchingArea_y_minus = y - searchingRadius
+    foundBlackPixel = False
+
+    for y_pos in range(y, searchingArea_y_plus, jumpPixel):
+         for x_pos in range(x, searchingArea_x_plus, jumpPixel):
+        
+            if(img[y_pos,x_pos,0] < blackPixel and img[y_pos,x_pos,1] < blackPixel and img[y_pos,x_pos,2] < blackPixel):
+                y = y_pos
+                x = x_pos
+                foundBlackPixel = True
+    
+    if foundBlackPixel == False:
+         for y_pos in range(y, searchingArea_y_minus, -jumpPixel):
+            for x_pos in range(x, searchingArea_x_minus, -jumpPixel):
+            
+                if(img[y_pos,x_pos,0] < blackPixel and img[y_pos,x_pos,1] < blackPixel and img[y_pos,x_pos,2] < blackPixel):
+                    y = y_pos
+                    x = x_pos
+    print(x, y, "\n\n\n")
+
+    jumpPixel_factor = 50
 
 
+    # look in axis'es for black pixels, if found put it into array and if not add 1 to count and if you find white pixels 10 times, stop. 
+    # look in +x axis 
+    for i in range(x,width, jumpPixel_factor):
+        if (img[y,i,0] < blackPixel and img[y,i,1] < blackPixel and img[y,i,2] < blackPixel):
+            point = (i, y)
+            blackPixelsArray.append(point)
+    
+        if (img[y,i,0] > whitePixel and img[y,i,1] > whitePixel and img[y,i,2] > whitePixel):
+            count += 1
+
+        if (count == checkLimit):
+            break
+    
+
+
+    # count how many times we detect white pixel (We reset the value here to 0)
+    count = 0
+
+    # look in -x axis 
+    for i in range(x,0, -jumpPixel_factor):
+        
+        if (img[y,i,0] < blackPixel and img[y,i,1] < blackPixel and img[y,i,2] < blackPixel):
+            point = (i, y)
+            blackPixelsArray.append(point)
+        
+        if(img[y,i,0] > whitePixel and img[y,i,1] > whitePixel and img[y,i,2] > whitePixel):
+            count += 1
+            
+        if (count == checkLimit):
+                break
+    
+    #Find the black pixel which is furthest to the right           
+    rightMostPixel = max(blackPixelsArray[i][0] for i in range(len(blackPixelsArray)))
+    
+    #Find the black pixel which is furthest to the left           
+    leftMostPixel = min(blackPixelsArray[i][0] for i in range(len(blackPixelsArray))) 
+
+    # Find the center x value between leftMostPixel and rightMostPixel
+    distance_x = ((rightMostPixel - leftMostPixel) // 2) + leftMostPixel
+
+    # clear array to input new black pixels when we look for y values next
+    blackPixelsArray.clear()
+
+    # count how many times we detect white pixel (We reset the value here to 0)
+    count = 0
+
+
+    # look in axis'es for black pixels, if found put it into array and if not add 1 to count and if you find white pixels 10 times, stop. 
+    # look in y axis 
+    for i in range(y,height, jumpPixel_factor):
+    
+        if (img[i,distance_x,0] < blackPixel and img[i,distance_x,1] < blackPixel and img[i,distance_x,2] < blackPixel):
+            point = (i, y)
+            blackPixelsArray.append(point)
+        
+        if (img[i,distance_x,0] > whitePixel and img[i,distance_x,1] > whitePixel and img[i,distance_x,2] > whitePixel):
+            count += 1
+
+        if (count == checkLimit):
+            break
+
+    # count how many times we detect white pixel (We reset the value here to 0)
+    count = 0
+
+    # look in -y axis 
+    for i in range(y,0, -jumpPixel_factor):
+        
+        if (img[i,distance_x,0] < blackPixel and img[i,distance_x,1] < blackPixel and img[i,distance_x,2] < blackPixel):
+            point = (i, y)
+            blackPixelsArray.append(point)
+        
+        if(img[i,distance_x,0] > whitePixel and img[i,distance_x,1] > whitePixel and img[i,distance_x,2] > whitePixel):
+            count += 1
+
+        if (count == checkLimit):
+                break
+        
+    #find the top and bottom most pixel 
+    TopMostPixel = max(blackPixelsArray[i][0] for i in range(len(blackPixelsArray)))
+    bottomMostPixel = min(blackPixelsArray[i][0] for i in range(len(blackPixelsArray)))
+
+    # find the center y value between the most top and bottom black pixel
+    distance_y =  ((TopMostPixel - bottomMostPixel) // 2) + bottomMostPixel
+
+    circleRadius = 20
+    verticalColorCircle = (255, 0, 0)
+    HorizontalColorCircle = (255, 0, 255)
+    circleThickness = -1
+
+# display horixontal lines 
+    img = cv.circle(img, (leftMostPixel,y), circleRadius, verticalColorCircle, circleThickness)
+    img = cv.circle(img, (rightMostPixel,y), circleRadius, verticalColorCircle, circleThickness)
+    img = cv.circle(img, (distance_x,y), circleRadius, verticalColorCircle, circleThickness)
+
+    # display vertical line and the point where we search searching area from
+    img = cv.circle(img, (distance_x,TopMostPixel), circleRadius,HorizontalColorCircle, circleThickness)
+    img = cv.circle(img, (distance_x,bottomMostPixel), circleRadius, HorizontalColorCircle, circleThickness)
+    img = cv.circle(img, (distance_x,distance_y), circleRadius, HorizontalColorCircle, circleThickness)
+
+    return (distance_x, distance_y)
 
 # create a square for searching area
 def find_searching_area_limits(img, img_center_x, img_center_y):
 
 
     # Jump certain amount of pixel to find the limit of searching Area
-    jumpPixel_limit = 600
+    jumpPixel_limit = 700
 
     # to calculate to start of the image in y and x axis
     end_point = -1
@@ -128,9 +273,9 @@ def groupPixelWithSameRGB(img, shotCoords, searchingLimits, color):
 
     # RGB interval to find the pixels we are looking for
     if color == 0:
-        R = 80  
+        R = 70  
         G = (70, 140) 
-        B = (70, 150)
+        B = (100, 190)
 
         
         # Check every pixel in each row to match the searching color
@@ -151,8 +296,8 @@ def groupPixelWithSameRGB(img, shotCoords, searchingLimits, color):
         return shotCoords
     
     elif color == 1:
-            R = (170, 256)
-            G = 80
+            R = (130, 256)
+            G = 140
             B = 80
 
             # Check every pixel in each row to match the searching color
@@ -216,7 +361,7 @@ def findCenterPixelOnMark(groups):
 
         x, y, w, h = cv.boundingRect(samePixelShots)
 
-        #cv.rectangle(img, (x, y), (x+w, y+h), (0, 255, 255), 5)
+        cv.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
         # Find the center of the boundingRec
         center_x = x + int(w/2)
@@ -236,18 +381,20 @@ def SearchAreaMark(img, groups):
         y = group[0][1]
         
         # Which pixel we use to look for other pixels to group in the same mark
-        img = cv.circle(img, (x,y), 3, (255,0,255), -1)
+        img = cv.circle(img, (x,y), 3, (255,255,0), -1)
 
+        circleRadius = 20
+        
         # The total square to find the pixels in the same group or same Mark
-        img = cv.circle(img, (x+shotPixelDistance , y+shotPixelDistance), 3, (0,255,255), -1)
-        img = cv.circle(img, (x+shotPixelDistance , y-shotPixelDistance), 3, (0,255,255), -1)
-        img = cv.circle(img, (x-shotPixelDistance , y+shotPixelDistance), 3, (0,255,255), -1)
-        img = cv.circle(img, (x-shotPixelDistance , y-shotPixelDistance), 3, (0,255,255), -1)
+        img = cv.circle(img, (x+shotPixelDistance , y+shotPixelDistance), circleRadius, (0,255,255), -1)
+        img = cv.circle(img, (x+shotPixelDistance , y-shotPixelDistance), circleRadius, (0,255,255), -1)
+        img = cv.circle(img, (x-shotPixelDistance , y+shotPixelDistance), circleRadius, (0,255,255), -1)
+        img = cv.circle(img, (x-shotPixelDistance , y-shotPixelDistance), circleRadius, (0,255,255), -1)
 
 
 
 # Function that reads the input image
-img = cv.imread(P1)
+img = cv.imread(uteTest_1)
 
 # Image resolution
 width = img.shape[1]
@@ -269,34 +416,36 @@ CircleMarkingRadius = 2
 thickness = -1
 
 # Starting point from where we utilize Jump factor to find searching Area
-
-
-
-img_center_x = width // 2
-img_center_y = height // 2
+centerPoint = find_center(img)
+img_center_x = centerPoint[0]
+img_center_y = centerPoint[1]
 
 # Mark ish the center of shooting target
 #img = cv.circle(img, (img_center_x,img_center_y), 50, (0,255,0), -1)
 
 # find the searching area
-searchingLimits = [0, width- 1000, 0, height - 1000]
+searchingLimits = find_searching_area_limits(img,img_center_x, img_center_y)
 
 # color of marks to look for
 blue = 0
 red = 1
 
 # Store all pixels that has the same rgb interval
-shotCoords = groupPixelWithSameRGB(img, shotCoords, searchingLimits, 0)
+shotCoords = groupPixelWithSameRGB(img, shotCoords, searchingLimits, 1)
 
 
 # first pixel detected with a defined rgb value
+print(shotCoords)
 if shotCoords is not None: 
     startLook = shotCoords[0]
+else:
+    print("shotCoords is none")
 pixelDistance_arr = []
+
 
 # look for amount of pixels in horizontal line for the first mark detected.
 for points in shotCoords:
-    if(points[0] == startLook[0] and abs(points[1] - startLook[1]) < 500 ):
+    if(points[0] == startLook[0] and abs(points[1] - startLook[1]) < 100 ):
          pixelDistance_arr.append(points)
 
 
@@ -304,10 +453,11 @@ for points in shotCoords:
 endLook = max(pixelDistance_arr[i][1] for i in range(len(pixelDistance_arr)))
 pixelDistance_deviation = 30
 
-# 
+# distance between helping others
 shotPixelDistance = (endLook - startLook[1] ) + pixelDistance_deviation
 
 print(shotPixelDistance)
+
 # gather pixels in the same shooting holes in each individual group
 groups = groupPixels_inSameMark(shotCoords)
 
